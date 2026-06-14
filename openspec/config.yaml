@@ -1,0 +1,27 @@
+schema: spec-driven
+
+context: |
+  Product: LexVault DMS (LegalCorp DMS Enterprise Edition) — internal document management for legal teams and small businesses.
+  Tech stack: Next.js (App Router), TypeScript, React, CSS Modules, Base UI (@base-ui/react) for unstyled primitives.
+  UI reference: docs/screen01.png through docs/screen12.png.
+  PRD: docs/prd.md — versioning, RBAC, basic search, upload→review→approve flow, audit trail.
+  Out of scope: Advanced OCR.
+  Design language: Clean enterprise UI — white/light-gray cards, dark sidebar accents, black primary actions, semantic status colors (green=success, orange=warning, red=critical).
+  Naming: Product displays as "LexVault DMS" in header; sidebar branding "LegalCorp DMS / Enterprise Edition".
+
+rules:
+  proposal:
+    - Reference relevant screenshot numbers (screen01–screen12)
+    - Include explicit Non-goals where PRD excludes scope
+  specs:
+    - Every requirement MUST have at least one scenario with #### Scenario header
+    - Reference UI elements from screenshots where applicable
+    - Use ADDED Requirements only (greenfield project)
+  design:
+    - Prefer Next.js App Router conventions (layouts, route groups)
+    - Style UI with co-located CSS Modules; use Base UI for unstyled interactive primitives
+    - Share design tokens via styles/tokens.css (CSS custom properties)
+    - Keep API contracts RESTful; defer DB choice to design but document data models
+  tasks:
+    - Order tasks to respect change dependencies (app-shell first)
+    - Break UI work into layout → components → data wiring
