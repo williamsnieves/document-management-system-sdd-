@@ -1,0 +1,111 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.iconBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  color: var(--gray-600);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.iconBtn:hover {
+  background: var(--gray-200);
+  color: var(--gray-900);
+}
+
+.zoomText, .pageText {
+  font-size: 0.875rem;
+  color: var(--gray-600);
+  min-width: 48px;
+  text-align: center;
+}
+
+.divider {
+  width: 1px;
+  height: 16px;
+  background: var(--gray-300);
+  margin: 0 4px;
+}
+
+.viewer {
+  flex: 1;
+  background: var(--gray-100);
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+
+.pdfPlaceholder {
+  transition: transform 0.2s ease;
+  transform-origin: top center;
+}
+
+.pdfPage {
+  background: white;
+  width: 800px;
+  min-height: 1000px;
+  padding: 48px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  border-radius: 4px;
+}
+
+.unsupportedPlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.unsupportedContent {
+  text-align: center;
+  color: var(--gray-600);
+}
+
+.downloadBtn {
+  margin-top: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--blue-600);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.downloadBtn:hover {
+  background: var(--blue-700);
+}

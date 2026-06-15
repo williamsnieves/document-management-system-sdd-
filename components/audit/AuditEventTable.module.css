@@ -1,0 +1,111 @@
+.wrap {
+  overflow-x: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-card);
+  background: var(--color-bg-card);
+  box-shadow: var(--shadow-card);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.table th {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: middle;
+}
+
+.timestamp {
+  white-space: nowrap;
+  color: var(--color-text-muted);
+}
+
+.userCell {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.resourceLink,
+.resource {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: #2563eb;
+  font-weight: 500;
+}
+
+.resourceMultiple {
+  color: var(--color-text-muted);
+}
+
+.resourceLink:hover {
+  text-decoration: underline;
+}
+
+.ipCell {
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.location {
+  display: block;
+  font-size: 0.75rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+}
+
+.badgeSuccess {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.badgeWarning {
+  background: #ffedd5;
+  color: #c2410c;
+}
+
+.badgeCritical {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.empty {
+  padding: 2rem !important;
+  text-align: center;
+  color: var(--color-text-muted);
+}

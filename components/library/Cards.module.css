@@ -1,0 +1,197 @@
+.card {
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--gray-900);
+  margin: 0;
+}
+
+.linkBtn {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--blue-600);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.linkBtn:hover {
+  text-decoration: underline;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Permissions */
+.permissionRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.permissionInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.permissionName {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--gray-900);
+}
+
+.permissionRole {
+  font-size: 0.8125rem;
+  color: var(--gray-500);
+}
+
+/* Classification */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sectionTitle {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.levelBadge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  width: fit-content;
+}
+
+.levelStandard {
+  background: var(--blue-50);
+  color: var(--blue-700);
+}
+
+.levelRestricted {
+  background: var(--red-50);
+  color: var(--red-700);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  padding: 4px 10px;
+  background: var(--gray-100);
+  color: var(--gray-700);
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.addTagBtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: white;
+  color: var(--gray-600);
+  border: 1px dashed var(--gray-300);
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.addTagBtn:hover {
+  background: var(--gray-50);
+}
+
+/* Audit Health */
+.healthRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.healthIcon {
+  color: var(--gray-400);
+}
+
+.healthInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.healthLabel {
+  font-size: 0.8125rem;
+  color: var(--gray-500);
+}
+
+.healthValue {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--gray-900);
+}
+
+.scoreSection {
+  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 1px solid var(--gray-200);
+}
+
+.scoreHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.scoreLabel {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--gray-900);
+}
+
+.scoreValue {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--green-600);
+}
+
+.scoreBar {
+  height: 8px;
+  background: var(--gray-100);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.scoreFill {
+  height: 100%;
+  background: var(--green-500);
+  border-radius: 4px;
+}

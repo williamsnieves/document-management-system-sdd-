@@ -1,0 +1,53 @@
+.card {
+  padding: 1.25rem;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-card);
+  background: var(--color-bg-card);
+  box-shadow: var(--shadow-card);
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.5rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  color: #fff;
+  text-align: center;
+}
+
+.icon {
+  opacity: 0.9;
+}
+
+.status {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.description {
+  margin: 0 0 1rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.button {
+  width: 100%;
+  padding: 0.625rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: var(--color-bg-card);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.button:hover {
+  background: #f9fafb;
+}
