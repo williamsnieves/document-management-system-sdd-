@@ -2,9 +2,17 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { FileText, PenLine, Shield } from 'lucide-react';
 import { OnboardingStepper } from '@/components/onboarding/OnboardingStepper';
 import styles from '@/components/onboarding/UserOnboarding.module.css';
+import { COMPLIANCE_DOCUMENTS } from '@/lib/onboarding/content';
 import type { OnboardingConfig, OnboardingProgress } from '@/lib/onboarding/types';
+
+const DOC_ICONS = {
+  document: FileText,
+  quill: PenLine,
+  shield: Shield,
+} as const;
 
 export default function CompliancePage() {
   const router = useRouter();
@@ -14,7 +22,7 @@ export default function CompliancePage() {
   const [activeDocId, setActiveDocId] = useState<string | null>(null);
 
   useEffect(() => {
-    loadData();
+    void loadData();
   }, []);
 
   async function loadData() {
@@ -28,9 +36,9 @@ export default function CompliancePage() {
       if (!confRes.ok) throw new Error('Failed to load config');
       const confData = await confRes.json();
       setConfig(confData);
-      
-      if (confData.requiredDocs.length > 0 && !activeDocId) {
-        setActiveDocId(confData.requiredDocs[0].documentId);
+
+      if (confData.requiredDocs.length > 0) {
+        setActiveDocId((current) => current ?? confData.requiredDocs[0].documentId);
       }
     } catch (e) {
       console.error(e);
@@ -42,90 +50,120 @@ export default function CompliancePage() {
   const handleSign = async (docId: string) => {
     try {
       await fetch(`/api/onboarding/progress/compliance/${docId}/complete`, { method: 'POST' });
-      await loadData(); // reload progress
+      await loadData();
     } catch (e) {
       console.error(e);
     }
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div className={styles.loading}>Loading...</div>;
 
-  const requiredDocsCount = config?.requiredDocs.length || 0;
-  const completedDocsCount = progress?.completedDocs.length || 0;
+  const requiredDocsCount = config?.requiredDocs.length ?? 0;
+  const completedDocsCount = progress?.completedDocs.length ?? 0;
   const isComplete = requiredDocsCount === completedDocsCount && requiredDocsCount > 0;
+  const activeDoc = COMPLIANCE_DOCUMENTS.find((d) => d.id === activeDocId);
+  const activeConfig = config?.requiredDocs.find((d) => d.documentId === activeDocId);
+  const isActiveCompleted = progress?.completedDocs.some((d) => d.documentId === activeDocId);
 
   return (
     <div className={styles.container}>
       <OnboardingStepper currentStep="compliance" />
-      
-      <div className={styles.grid}>
-        <div className={styles.sidebar}>
-          <h3 style={{ margin: '0 0 1rem' }}>Required Documents</h3>
+
+      <div className={styles.complianceLayout}>
+        <aside className={styles.docSidebar}>
+          <h2 className={styles.docSidebarTitle}>Compliance Documents</h2>
+          <p className={styles.docSidebarSub}>
+            {completedDocsCount} of {requiredDocsCount} completed
+          </p>
           <div className={styles.progressContainer}>
-            <div 
-              className={styles.progressBar} 
-              style={{ width: `${(completedDocsCount / Math.max(requiredDocsCount, 1)) * 100}%` }} 
+            <div
+              className={styles.progressBar}
+              style={{ width: `${(completedDocsCount / Math.max(requiredDocsCount, 1)) * 100}%` }}
             />
           </div>
-          <div style={{ fontSize: '0.875rem', color: '#6b7280', marginBottom: '1rem' }}>
-            {completedDocsCount} of {requiredDocsCount} completed
-          </div>
 
-          {config?.requiredDocs.map(doc => {
-            const isCompleted = progress?.completedDocs.some(d => d.documentId === doc.documentId);
+          {config?.requiredDocs.map((doc) => {
+            const display = COMPLIANCE_DOCUMENTS.find((d) => d.id === doc.documentId);
+            const isCompleted = progress?.completedDocs.some((d) => d.documentId === doc.documentId);
             const isActive = activeDocId === doc.documentId;
-            
+            const Icon = display ? DOC_ICONS[display.icon] : FileText;
+
             return (
-              <div 
+              <button
                 key={doc.id}
-                className={`${styles.sidebarItem} ${isActive ? styles.sidebarItemActive : ''} ${isCompleted ? styles.sidebarItemCompleted : ''}`}
+                type="button"
+                className={`${styles.docItem} ${isActive ? styles.docItemActive : ''}`}
                 onClick={() => setActiveDocId(doc.documentId)}
               >
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <strong>{doc.documentId}</strong>
-                  {isCompleted && <span style={{ color: '#10b981' }}>✓</span>}
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
+                  <Icon size={18} style={{ marginTop: '0.125rem', flexShrink: 0 }} />
+                  <div style={{ textAlign: 'left' }}>
+                    <div className={styles.docItemTitle}>
+                      {display?.title ?? doc.documentId}
+                    </div>
+                    <div className={styles.docStatus}>
+                      {isCompleted ? (
+                        <span style={{ color: '#16a34a' }}>COMPLETED</span>
+                      ) : (
+                        <span className={styles.docStatusReady}>
+                          {display?.statusLabel ?? 'READY TO REVIEW'}
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </div>
-                <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>
-                  {doc.requirementType === 'e_signature' ? 'E-Signature Required' : 'Read Confirmation'}
-                </div>
-              </div>
+              </button>
             );
           })}
-        </div>
+        </aside>
 
-        <div className={styles.mainArea}>
-          <div style={{ flex: 1 }}>
-            {activeDocId ? (
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div className={styles.docViewer}>
+            {activeDoc ? (
               <>
-                <h2 style={{ margin: '0 0 1rem' }}>Document Viewer: {activeDocId}</h2>
-                <div style={{ padding: '2rem', background: '#f3f4f6', borderRadius: '0.375rem', minHeight: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  [PDF / Document Content for {activeDocId}]
+                <h2 style={{ margin: '0 0 0.5rem', fontSize: '1.25rem' }}>{activeDoc.title}</h2>
+                <p style={{ margin: '0 0 1.5rem', fontSize: '0.8125rem', color: '#6b7280' }}>
+                  {activeDoc.subtitle}
+                </p>
+                <div className={styles.docPaper}>
+                  {activeDoc.body}
+                  {activeDoc.requirementType === 'e_signature' && (
+                    <div className={styles.docHighlight}>
+                      By signing below, you acknowledge that you have read and agree to the terms
+                      of this Non-Disclosure Agreement.
+                    </div>
+                  )}
                 </div>
+                {activeDocId && !isActiveCompleted && (
+                  <div style={{ marginTop: '1.5rem' }}>
+                    <button
+                      type="button"
+                      className={`${styles.button} ${styles.buttonPrimary}`}
+                      onClick={() => handleSign(activeDocId)}
+                    >
+                      {activeConfig?.requirementType === 'e_signature'
+                        ? 'I Agree & Sign Electronically'
+                        : 'I Have Read This Document'}
+                    </button>
+                  </div>
+                )}
               </>
             ) : (
-              <div>Select a document to review</div>
+              <div className={styles.loading}>Select a document to review</div>
             )}
           </div>
 
-          <div className={styles.actions} style={{ marginTop: 'auto' }}>
-            {activeDocId && !progress?.completedDocs.some(d => d.documentId === activeDocId) && (
-              <button 
-                className={`${styles.button} ${styles.buttonPrimary}`}
-                style={{ marginRight: 'auto' }}
-                onClick={() => handleSign(activeDocId)}
-              >
-                {config?.requiredDocs.find(d => d.documentId === activeDocId)?.requirementType === 'e_signature' 
-                  ? 'I agree and sign' 
-                  : 'I have read this document'}
-              </button>
-            )}
-
-            <button 
+          <div className={styles.progressFooter}>
+            <span className={styles.progressLabel}>
+              Step 2 of 4 — Compliance Attestation
+            </span>
+            <button
+              type="button"
               className={`${styles.button} ${styles.buttonPrimary}`}
               disabled={!isComplete}
               onClick={() => router.push('/onboarding/training')}
             >
-              Save & Continue
+              Save & Continue →
             </button>
           </div>
         </div>

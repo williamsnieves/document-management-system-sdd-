@@ -6,9 +6,17 @@ import { NavigationMenu } from '@base-ui/react/navigation-menu';
 import { LayoutDashboard, Library, FileCheck, Settings, History, HelpCircle, Plus } from 'lucide-react';
 import styles from './Sidebar.module.css';
 import { StorageUsageWidget } from './StorageUsageWidget';
+import { getCurrentUser } from '@/lib/auth/middleware';
+import { PERMISSIONS } from '@/lib/auth/permissions';
+import { hasPermission } from '@/lib/roles/hasPermission';
 
 export function Sidebar() {
   const pathname = usePathname();
+  const user = getCurrentUser();
+  const canViewApprovals =
+    hasPermission(user, PERMISSIONS.VIEW_DOCUMENTS) ||
+    hasPermission(user, PERMISSIONS.APPROVE);
+  const canViewAudit = hasPermission(user, PERMISSIONS.VIEW_AUDIT_LOGS);
 
   const isCurrent = (path: string) => pathname?.startsWith(path);
 
@@ -48,16 +56,18 @@ export function Sidebar() {
             </Link>
           </NavigationMenu.Item>
 
-          <NavigationMenu.Item>
-            <Link href="/approvals" passHref legacyBehavior>
-              <NavigationMenu.Link
-                className={isCurrent('/approvals') ? `${styles.navItem} ${styles.navItemActive}` : styles.navItem}
-              >
-                <FileCheck size={18} />
-                Approvals
-              </NavigationMenu.Link>
-            </Link>
-          </NavigationMenu.Item>
+          {canViewApprovals && (
+            <NavigationMenu.Item>
+              <Link href="/approvals" passHref legacyBehavior>
+                <NavigationMenu.Link
+                  className={isCurrent('/approvals') ? `${styles.navItem} ${styles.navItemActive}` : styles.navItem}
+                >
+                  <FileCheck size={18} />
+                  Approvals
+                </NavigationMenu.Link>
+              </Link>
+            </NavigationMenu.Item>
+          )}
 
           <NavigationMenu.Item>
             <Link href="/settings" passHref legacyBehavior>
@@ -76,10 +86,12 @@ export function Sidebar() {
         <StorageUsageWidget />
 
         <div className={styles.bottomLinks}>
-          <Link href="/audit-log" className={styles.bottomLink}>
-            <History size={16} />
-            Audit Log
-          </Link>
+          {canViewAudit && (
+            <Link href="/audit-log" className={styles.bottomLink}>
+              <History size={16} />
+              Audit Log
+            </Link>
+          )}
           <Link href="/support" className={styles.bottomLink}>
             <HelpCircle size={16} />
             Support

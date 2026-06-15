@@ -5,6 +5,9 @@ import { Button } from '@base-ui/react/button';
 import { FolderPlus, Share2, Upload } from 'lucide-react';
 
 import { dispatchOpenUpload } from '@/components/library';
+import { getCurrentUser } from '@/lib/auth/middleware';
+import { PERMISSIONS } from '@/lib/auth/permissions';
+import { hasPermission } from '@/lib/roles/hasPermission';
 
 import styles from './QuickActionsPanel.module.css';
 
@@ -14,31 +17,37 @@ interface QuickActionsPanelProps {
 
 export function QuickActionsPanel({ onCreateFolder }: QuickActionsPanelProps) {
   const router = useRouter();
+  const user = getCurrentUser();
+  const canUpload = hasPermission(user, PERMISSIONS.UPLOAD);
 
   return (
     <section className={styles.panel} aria-label="Quick actions">
       <h2 className={styles.heading}>Quick Actions</h2>
       <ul className={styles.list}>
-        <li>
-          <Button
-            className={styles.action}
-            type="button"
-            onClick={() => dispatchOpenUpload()}
-          >
-            <Upload size={16} aria-hidden />
-            Upload New Document
-          </Button>
-        </li>
-        <li>
-          <Button
-            className={styles.action}
-            type="button"
-            onClick={onCreateFolder}
-          >
-            <FolderPlus size={16} aria-hidden />
-            Create Folder
-          </Button>
-        </li>
+        {canUpload && (
+          <>
+            <li>
+              <Button
+                className={styles.action}
+                type="button"
+                onClick={() => dispatchOpenUpload()}
+              >
+                <Upload size={16} aria-hidden />
+                Upload New Document
+              </Button>
+            </li>
+            <li>
+              <Button
+                className={styles.action}
+                type="button"
+                onClick={onCreateFolder}
+              >
+                <FolderPlus size={16} aria-hidden />
+                Create Folder
+              </Button>
+            </li>
+          </>
+        )}
         <li>
           <Button
             className={styles.action}

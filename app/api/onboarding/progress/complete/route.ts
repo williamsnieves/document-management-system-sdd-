@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server';
 import { getOnboardingProgress, updateOnboardingProgress } from '@/lib/onboarding';
-import { getCurrentUser } from '@/lib/auth/middleware';
+import { getOnboardingUser } from '@/lib/onboarding/demo-user';
 import { recordAuditEvent } from '@/lib/audit/store';
 import { cookies } from 'next/headers';
 
 export async function POST(request: Request) {
   try {
-    const user = getCurrentUser();
+    const user = getOnboardingUser();
     const progress = await getOnboardingProgress(user.id);
     
     if (!progress) {

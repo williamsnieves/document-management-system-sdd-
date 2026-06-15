@@ -1,12 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { documentStore, UploadError } from '@/lib/documents/store';
-import { getCurrentUser } from '@/lib/documents/access';
-import { ALLOWED_MIME_TYPES } from '@/lib/documents/types';
+import { getCurrentUser, requireUpload, requireViewDocuments } from '@/lib/documents/access';
 
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const auth = requireViewDocuments();
+  if (!auth.allowed) {
+    return auth.response;
+  }
+
   const document = documentStore.getDocumentById(params.id);
   if (!document) {
     return NextResponse.json({ error: 'Document not found' }, { status: 404 });
@@ -20,6 +24,11 @@ export async function POST(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const auth = requireUpload();
+  if (!auth.allowed) {
+    return auth.response;
+  }
+
   try {
     const formData = await request.formData();
     const file = formData.get('file');

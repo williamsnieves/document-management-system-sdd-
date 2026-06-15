@@ -1,11 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { documentStore, UploadError } from '@/lib/documents/store';
-import { getCurrentUser } from '@/lib/documents/access';
+import { getCurrentUser, requireRestoreVersions } from '@/lib/documents/access';
 
 export async function POST(
   request: NextRequest,
   { params }: { params: { id: string; versionId: string } }
 ) {
+  const auth = requireRestoreVersions();
+  if (!auth.allowed) {
+    return auth.response;
+  }
+
   try {
     const user = getCurrentUser();
     const document = await documentStore.restoreVersion(params.id, params.versionId, user.id);

@@ -6,10 +6,16 @@ import { Button } from '@base-ui/react/button';
 import { SearchBar } from './SearchBar';
 import { UserMenu } from './UserMenu';
 import styles from './Header.module.css';
-// Ensure to ignore if it doesn't exist during dev without document-library agent
 import { dispatchOpenUpload } from '@/components/library';
+import { getCurrentUser } from '@/lib/auth/middleware';
+import { PERMISSIONS } from '@/lib/auth/permissions';
+import { hasPermission } from '@/lib/roles/hasPermission';
 
 export function Header() {
+  const user = getCurrentUser();
+  const canUpload = hasPermission(user, PERMISSIONS.UPLOAD);
+  const canViewAudit = hasPermission(user, PERMISSIONS.VIEW_AUDIT_LOGS);
+
   return (
     <header className={styles.header}>
       <div className={styles.left}>
@@ -27,13 +33,17 @@ export function Header() {
         <button className={styles.iconButton} aria-label="Help">
           <HelpCircle size={20} />
         </button>
-        <Link href="/audit-log" className={styles.iconButton} aria-label="History">
-          <History size={20} />
-        </Link>
-        <Button className={styles.uploadButton} onClick={() => dispatchOpenUpload()}>
-          <Upload size={16} />
-          Upload
-        </Button>
+        {canViewAudit && (
+          <Link href="/audit-log" className={styles.iconButton} aria-label="History">
+            <History size={20} />
+          </Link>
+        )}
+        {canUpload && (
+          <Button className={styles.uploadButton} onClick={() => dispatchOpenUpload()}>
+            <Upload size={16} />
+            Upload
+          </Button>
+        )}
         <UserMenu />
       </div>
     </header>
