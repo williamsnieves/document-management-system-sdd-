@@ -1,0 +1,104 @@
+.panel {
+  padding: 1.25rem;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-card);
+  background: var(--color-bg-card);
+  box-shadow: var(--shadow-card);
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.heading {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.docLink {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #2563eb;
+}
+
+.docLink:hover {
+  text-decoration: underline;
+}
+
+.timeline {
+  position: relative;
+  padding: 0 0.5rem;
+}
+
+.track {
+  position: absolute;
+  top: 8px;
+  left: 1rem;
+  right: 1rem;
+  height: 2px;
+  background: #e5e7eb;
+}
+
+.milestones {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
+.milestone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+  text-align: center;
+}
+
+.dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px #e5e7eb;
+}
+
+.dotComplete {
+  background: var(--color-success);
+}
+
+.dotCurrent {
+  background: var(--color-primary-action);
+  box-shadow: 0 0 0 2px var(--color-primary-action);
+}
+
+.dotPending {
+  background: #d1d5db;
+}
+
+.dotConflict {
+  background: var(--color-warning);
+}
+
+.milestoneContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.version {
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.label {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}

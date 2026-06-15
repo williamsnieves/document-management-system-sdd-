@@ -1,0 +1,147 @@
+.panel {
+  padding: 1.25rem;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-card);
+  background: var(--color-bg-card);
+  box-shadow: var(--shadow-card);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.heading {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.viewAll {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #2563eb;
+}
+
+.viewAll:hover {
+  text-decoration: underline;
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.table th {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.table td {
+  padding: 0.875rem 0.75rem;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: middle;
+}
+
+.docCell {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+}
+
+.docIcon {
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+  color: var(--color-text-muted);
+}
+
+.docName {
+  display: block;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.docName:hover {
+  color: #2563eb;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin-top: 0.25rem;
+}
+
+.tag {
+  font-size: 0.6875rem;
+  color: var(--color-text-muted);
+}
+
+.tag:not(:last-child)::after {
+  content: ' •';
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+}
+
+.badgeNew {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.badgeVersion {
+  background: #e0e7ff;
+  color: #4338ca;
+}
+
+.badgeUploaded {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.badgeConflict {
+  background: #ffedd5;
+  color: #c2410c;
+}
+
+.badgeApproved {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.badgeResolved {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.badgeEdit {
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+.userCell {
+  color: var(--color-text-primary);
+}
+
+.timeCell {
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}

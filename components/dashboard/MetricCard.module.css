@@ -1,0 +1,100 @@
+.card {
+  padding: 1.25rem;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-card);
+  background: var(--color-bg-card);
+  box-shadow: var(--shadow-card);
+}
+
+.dark {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border-color: #334155;
+  color: #fff;
+}
+
+.dark .title,
+.dark .subtitle {
+  color: rgb(255 255 255 / 0.75);
+}
+
+.dark .icon {
+  color: rgb(255 255 255 / 0.6);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.title {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.icon {
+  color: var(--color-text-muted);
+}
+
+.value {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.subtitle {
+  margin: 0.25rem 0 0.75rem;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+}
+
+.progressTrack {
+  height: 6px;
+  margin-top: 0.75rem;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.15);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 999px;
+  background: #38bdf8;
+}
+
+.delta {
+  margin: 0.5rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--color-success);
+}
+
+.dark .delta {
+  color: #86efac;
+}
+
+.deltaPositive {
+  font-weight: 600;
+}
+
+.urgent {
+  margin: 0.5rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--color-critical);
+}
+
+.urgentIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.25rem;
+  border-radius: 50%;
+  background: var(--color-critical);
+  color: #fff;
+  font-size: 0.6875rem;
+  font-weight: 700;
+}

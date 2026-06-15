@@ -1,0 +1,16 @@
+:root {
+  --color-bg-app: #f4f4f5;
+  --color-bg-sidebar: #eef2f6;
+  --color-bg-card: #ffffff;
+  --color-text-primary: #111827;
+  --color-text-muted: #6b7280;
+  --color-accent-active: #e6f0ff;
+  --color-primary-action: #111827;
+  --color-success: #16a34a;
+  --color-warning: #ea580c;
+  --color-critical: #dc2626;
+  --sidebar-width: 240px;
+  --header-height: 64px;
+  --radius-card: 12px;
+  --shadow-card: 0 1px 3px rgb(0 0 0 / 0.08);
+}
