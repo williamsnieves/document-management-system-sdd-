@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getOnboardingProgress, updateOnboardingProgress } from '@/lib/onboarding';
-import { getCurrentUser } from '@/lib/auth/middleware';
+import { getOnboardingUser } from '@/lib/onboarding/demo-user';
 
 export async function POST(
   request: Request,
@@ -8,7 +8,7 @@ export async function POST(
 ) {
   try {
     const { percentComplete } = await request.json();
-    const user = getCurrentUser();
+    const user = getOnboardingUser();
     const progress = await getOnboardingProgress(user.id);
     
     if (!progress) {

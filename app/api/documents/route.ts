@@ -5,9 +5,15 @@ import {
   parseCategories,
   parseStatuses,
 } from '@/lib/documents/store';
+import { requireViewDocuments } from '@/lib/documents/access';
 import type { DocumentSortField, SortOrder } from '@/lib/documents/types';
 
 export async function GET(request: NextRequest) {
+  const auth = requireViewDocuments();
+  if (!auth.allowed) {
+    return auth.response;
+  }
+
   const { searchParams } = request.nextUrl;
 
   const category = parseCategories(searchParams.get('category'));

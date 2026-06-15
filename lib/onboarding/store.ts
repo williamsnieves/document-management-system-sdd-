@@ -9,7 +9,7 @@ let configs: Record<string, OnboardingConfig> = {
 let progressRecords: Record<string, OnboardingProgress> = {}; // keyed by userId
 
 export async function getOnboardingConfig(roleId: string): Promise<OnboardingConfig | null> {
-  return configs[roleId] || null;
+  return configs[roleId] ?? configs[defaultLegalCounselConfig.roleId] ?? null;
 }
 
 export async function saveOnboardingConfig(roleId: string, config: Partial<OnboardingConfig>): Promise<OnboardingConfig> {

@@ -18,13 +18,13 @@
 
 ## 3. Enforcement
 
-- [ ] 3.1 Add permission middleware to document API routes
+- [x] 3.1 Add permission middleware to document API routes
 - [x] 3.2 Add permission middleware to approval API routes
-- [ ] 3.3 Add permission guard to audit log page and API
-- [ ] 3.4 Conditionally render UI actions based on user permissions
+- [x] 3.3 Add permission guard to audit log page and API
+- [x] 3.4 Conditionally render UI actions based on user permissions
 - [x] 3.5 Implement Global Admin bypass in authorization utility
 
 ## 4. Integration
 
-- [ ] 4.1 Record permission changes as audit events
+- [x] 4.1 Record permission changes as audit events
 - [x] 4.2 Display reserved permission notes for admin-only capabilities

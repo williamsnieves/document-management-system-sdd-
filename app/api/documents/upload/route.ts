@@ -1,9 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-import { getCurrentUser } from '@/lib/documents/access';
+import { getCurrentUser, requireUpload } from '@/lib/documents/access';
 import { documentStore, UploadError } from '@/lib/documents/store';
 import type { DocumentCategory } from '@/lib/documents/types';
 export async function POST(request: NextRequest) {
+  const auth = requireUpload();
+  if (!auth.allowed) {
+    return auth.response;
+  }
+
   try {
     const formData = await request.formData();
     const file = formData.get('file');

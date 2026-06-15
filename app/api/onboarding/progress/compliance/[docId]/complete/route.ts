@@ -1,13 +1,13 @@
 import { NextResponse } from 'next/server';
 import { getOnboardingProgress, updateOnboardingProgress } from '@/lib/onboarding';
-import { getCurrentUser } from '@/lib/auth/middleware';
+import { getOnboardingUser } from '@/lib/onboarding/demo-user';
 
 export async function POST(
   request: Request,
   { params }: { params: { docId: string } }
 ) {
   try {
-    const user = getCurrentUser();
+    const user = getOnboardingUser();
     const progress = await getOnboardingProgress(user.id);
     
     if (!progress) {

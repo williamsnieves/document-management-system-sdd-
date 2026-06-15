@@ -1,12 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { documentStore } from '@/lib/documents/store';
 import { recordAuditEvent } from '@/lib/audit/record';
-import { getCurrentUser } from '@/lib/documents/access';
+import { getCurrentUser, requireEditMetadata } from '@/lib/documents/access';
 
 export async function POST(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const auth = requireEditMetadata();
+  if (!auth.allowed) {
+    return auth.response;
+  }
+
   try {
     const { email } = await request.json();
     const document = documentStore.getDocumentById(params.id);

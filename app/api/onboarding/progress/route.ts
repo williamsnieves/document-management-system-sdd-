@@ -1,11 +1,10 @@
 import { NextResponse } from 'next/server';
 import { getOnboardingProgress, initializeOnboardingProgress } from '@/lib/onboarding';
-import { getCurrentUser } from '@/lib/auth/middleware';
+import { getOnboardingUser } from '@/lib/onboarding/demo-user';
 
 export async function GET(request: Request) {
   try {
-    const user = getCurrentUser();
-    // Use the first role for simplicity, in a real app would select the active/primary role
+    const user = getOnboardingUser();
     const roleId = user.roleIds[0];
     
     let progress = await getOnboardingProgress(user.id);
